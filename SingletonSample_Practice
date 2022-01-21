@@ -1,0 +1,47 @@
+using System;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Steam Player = new Steam();
+            Player.RunGame("CS:GO");
+            Console.WriteLine(Player.Game.NameOfGame);
+
+            Player.RunGame("Dota 2");
+            Console.WriteLine(Player.Game.NameOfGame);
+        }
+    }
+
+    class Steam
+    {
+        public Game Game { get; set; }
+
+        public void RunGame(string NameOfGame)
+        {
+            Game = Game.getInstance(NameOfGame);
+        }
+    }
+
+    class Game
+    {
+        private static Game instance;
+        public string NameOfGame { get; private set; }
+
+        private Game (string name)
+        {
+            this.NameOfGame = name;
+        }
+
+        public static Game getInstance(string name)
+        {
+            if (instance == null)
+            {
+                instance = new Game(name);
+            }
+            return instance;
+        }
+    }
+}
